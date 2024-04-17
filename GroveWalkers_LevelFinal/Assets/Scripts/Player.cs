@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private static Player instance;
+    public static Player instance;
 
     public bool isCrouched = false;
     private SporeCollection sporeCollection;
@@ -14,24 +14,12 @@ public class Player : MonoBehaviour
 
     // Start is called before the first frame update
 
-    public static Player Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = FindObjectOfType<Player>();
-                if (instance == null)
-                {
-                    Debug.LogError("No Player instance found in the scene.");
-                }
-            }
-            return instance;
-        }
-    }
+    
 
     private void Awake()
     {
+        instance = this;
+
         sporeCollection = FindObjectOfType<SporeCollection>();
 
         sporeLight = GetComponentInChildren<Light>();
@@ -50,7 +38,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        Player.instance = this;
+       
     }
 
     // Update is called once per frame
@@ -65,6 +53,18 @@ public class Player : MonoBehaviour
         {
             isCrouched = false;
             Debug.Log("You are no longer Crouched");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            sporeCollection.RemoveSpore(this.transform.position);
+            hasSpore = false;
+            UpdateLight();
+        }
+
+        if (hasSpore == true)
+        {
+            sporeLight.intensity -= .5f * Time.deltaTime;
         }
     }
 
@@ -91,4 +91,6 @@ public class Player : MonoBehaviour
             sporeLight.enabled = hasSpore; // Enable light if the player has a spore, otherwise disable it
         }
     }
+
+    
 }

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class SporeCollection : MonoBehaviour
 {
-    private SporeCluster currentSpore = null;
-    public GameObject sporePrefab;
+    private List<SporeCluster> sporeInventory = new List<SporeCluster>();
 
     public void AddSpore(SporeCluster spore)
     {
-        if (currentSpore == null)
+        if (spore != null)
         {
-            currentSpore = spore;
+            sporeInventory.Add(spore);
+            //spore.gameObject.SetActive(false);
             Debug.Log("Spore added to Lantern!");
         }
         else
@@ -20,12 +20,11 @@ public class SporeCollection : MonoBehaviour
         }
     }
 
-    public void DropSpore()
+    public void RemoveSpore(Vector3 position)
     {
-        if (currentSpore != null)
-        {
-            Debug.Log("You dropped your Spore");
-        }
+
+        sporeInventory[sporeInventory.Count - 1].DropSpore(position);
+        sporeInventory.RemoveAt(sporeInventory.Count - 1);
     }
     void Start()
     {

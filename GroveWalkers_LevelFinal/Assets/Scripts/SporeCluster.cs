@@ -26,7 +26,7 @@ public class SporeCluster : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
     }
-    private void ToggleMeshAndLight(bool active)
+    public void ToggleMeshAndLight(bool active)
     {
         particleMesh.SetActive(active);
         sporeLight.enabled = active;
@@ -40,13 +40,10 @@ public class SporeCluster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            DropSpore();
-        }
+       
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -55,8 +52,12 @@ public class SporeCluster : MonoBehaviour
             {
                 if (player.IsCrouched())
                 {
-                    CollectSpore();
-                    Debug.Log("You collected the spores!");
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        CollectSpore();
+                        Debug.Log("You collected the spores!");
+                    }
+                    
                 }
                 else
                 {
@@ -83,13 +84,16 @@ public class SporeCluster : MonoBehaviour
         ToggleMeshAndLight(false);
         currentState = SporeState.Collected;
 
-        Player.Instance.OnSporeCollected(this);
+        Player.instance.OnSporeCollected(this);
     }
-    public void DropSpore()
+    public void DropSpore(Vector3 position)
     {
         if (currentState == SporeState.Collected)
         {
-            //ToggleMeshAndLight(true) at player position
+            this.transform.position = position;
+            ToggleMeshAndLight(true);
+            currentState = SporeState.Dormant;
+            triggerCollider.enabled = true;
         }
     }
 
