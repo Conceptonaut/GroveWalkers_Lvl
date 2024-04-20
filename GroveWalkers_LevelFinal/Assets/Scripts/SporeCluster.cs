@@ -19,7 +19,9 @@ public class SporeCluster : MonoBehaviour
     public Transform[] fleePoints;
     public SphereCollider triggerCollider;
     private NavMeshAgent agent;
-    private bool isPlayerCrouched;
+    private bool isCollected;
+
+    private Vector3 spawnPoint;
 
     // Start is called before the first frame update
     private void Awake()
@@ -28,19 +30,14 @@ public class SporeCluster : MonoBehaviour
     }
     public void ToggleMeshAndLight(bool active)
     {
+        Debug.LogError("CHECK MESH ::: " + active);
         particleMesh.SetActive(active);
         sporeLight.enabled = active;
     }
 
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
+        spawnPoint = this.transform.position;
     }
 
     private void OnTriggerStay(Collider other)
@@ -52,19 +49,22 @@ public class SporeCluster : MonoBehaviour
             {
                 if (player.IsCrouched())
                 {
-                    if (Input.GetKeyDown(KeyCode.E))
+                    if (Input.GetKeyDown(KeyCode.E) && (currentState == SporeState.Dormant || currentState ==  SporeState.Collected))
                     {
                         CollectSpore();
                         Debug.Log("You collected the spores!");
                     }
                     
                 }
-                else
+                else 
                 {
-                    currentState = SporeState.Fleeing;
-                    triggerCollider.enabled = false;
-                    Debug.Log("You distrubed the spores");
-                    MoveToRandomFleePoint();
+                    if (currentState == SporeState.Dormant)
+                    {
+                        currentState = SporeState.Fleeing;
+                        triggerCollider.enabled = false;
+                        Debug.Log("You distrubed the spores");
+                        MoveToRandomFleePoint();
+                    }
                 }
             }
         }
@@ -81,18 +81,33 @@ public class SporeCluster : MonoBehaviour
 
     private void CollectSpore()
     {
-        ToggleMeshAndLight(false);
         currentState = SporeState.Collected;
-
+        triggerCollider.enabled = false;
+        ToggleMeshAndLight(false);
         Player.instance.OnSporeCollected(this);
     }
+
+    public void StartRespawn()
+    {
+        Invoke("Respawn", CONTROLLER.SPORE_RESPAWN_TIMER);
+    }
+
+    private void Respawn()
+    {
+        this.transform.position = spawnPoint;
+        ToggleMeshAndLight(true);
+        triggerCollider.enabled = true;
+        currentState = SporeState.Dormant;
+       
+    }
+
     public void DropSpore(Vector3 position)
     {
         if (currentState == SporeState.Collected)
         {
             this.transform.position = position;
             ToggleMeshAndLight(true);
-            currentState = SporeState.Dormant;
+           // currentState = SporeState.Dormant;
             triggerCollider.enabled = true;
         }
     }

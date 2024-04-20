@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class Player : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class Player : MonoBehaviour
     public Light sporeLight;
     public bool hasSpore = false;
 
+    public float lightIntensity = 4;
     // Start is called before the first frame update
 
     
@@ -55,7 +57,7 @@ public class Player : MonoBehaviour
             Debug.Log("You are no longer Crouched");
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && hasSpore == true)
         {
             sporeCollection.RemoveSpore(this.transform.position);
             hasSpore = false;
@@ -65,6 +67,43 @@ public class Player : MonoBehaviour
         if (hasSpore == true)
         {
             sporeLight.intensity -= .5f * Time.deltaTime;
+            if (sporeLight.intensity <= 0)
+            {
+                hasSpore = false;
+                sporeCollection.DestroySpore();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(this.transform.position, this.transform.forward, out hit, 5f))
+            {
+                if (hit.collider.CompareTag("Interactable"))
+                {
+                    Interactable interactable = hit.collider.gameObject.GetComponent<Interactable>();
+
+                    if (interactable.requiresSpore == true)
+                    {
+                        if (hasSpore)
+                        {
+                            if (interactable.hasBeenTriggered == false)
+                            {
+                                hasSpore = false;
+                                sporeCollection.DestroySpore();
+                                interactable.Interact();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (interactable.hasBeenTriggered == false)
+                        {
+                            interactable.Interact();
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -77,6 +116,7 @@ public class Player : MonoBehaviour
         if (spore != null)
         {
             hasSpore = true;
+            sporeLight.intensity = lightIntensity;
             UpdateLight();
             sporeCollection.AddSpore(spore); // Add the collected spore to the SporeCollectionClass
             // Optionally, you can perform other actions upon collecting a spore
