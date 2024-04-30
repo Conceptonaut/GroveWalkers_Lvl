@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
 
         if (hasSpore == true)
         {
-            sporeLight.intensity -= .5f * Time.deltaTime;
+            //sporeLight.intensity -= .5f * Time.deltaTime;
             if (sporeLight.intensity <= 0)
             {
                 hasSpore = false;
@@ -76,20 +76,33 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
+            Debug.Log("Key Hit");
+
             RaycastHit hit;
             if (Physics.Raycast(this.transform.position, this.transform.forward, out hit, 5f))
             {
+                Debug.Log("Raycast Hit Somethin");
+                Debug.Log(hit.collider.name);
+
                 if (hit.collider.CompareTag("Interactable"))
                 {
+                    Debug.Log("interactable hit");
+                    
+
                     Interactable interactable = hit.collider.gameObject.GetComponent<Interactable>();
 
                     if (interactable.requiresSpore == true)
                     {
+                        Debug.Log("requires spore is true");
+
                         if (hasSpore)
                         {
+                            Debug.Log("has spore");
                             if (interactable.hasBeenTriggered == false)
                             {
+                                Debug.Log("interactable triggered");
                                 hasSpore = false;
+                                UpdateLight();
                                 sporeCollection.DestroySpore();
                                 interactable.Interact();
                             }

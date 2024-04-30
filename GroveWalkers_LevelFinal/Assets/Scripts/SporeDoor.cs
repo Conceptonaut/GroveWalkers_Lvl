@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class SporeDoor : Interactable
 {
+    public float doorOpenTime = 2f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,8 +23,8 @@ public class SporeDoor : Interactable
     {
         base.Interact();
 
-        //Do something!
-        //hasBeenTriggered = true;
+        this.transform.DORotate(new Vector3(0f, 90f, 0f), doorOpenTime);
+        hasBeenTriggered = true;
         //this.transform.rotation = 
     }
 }
