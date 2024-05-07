@@ -16,11 +16,13 @@ public class Player : MonoBehaviour
     public float lightIntensity = 4;
     // Start is called before the first frame update
 
-    
+    public FirstPersonController FPScontroller;
 
     private void Awake()
     {
         instance = this;
+
+        FPScontroller = GetComponent<FirstPersonController>();  
 
         sporeCollection = FindObjectOfType<SporeCollection>();
 
@@ -113,6 +115,7 @@ public class Player : MonoBehaviour
                         if (interactable.hasBeenTriggered == false)
                         {
                             interactable.Interact();
+                            FPScontroller.cameraCanMove = false;
                         }
                     }
                 }

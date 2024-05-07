@@ -23,5 +23,6 @@ public class PopUp : MonoBehaviour
             customImage.enabled = false;
         }
     }
-
+    
+    
 }
