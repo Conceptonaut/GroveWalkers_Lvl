@@ -5,7 +5,9 @@ using DG.Tweening;
 
 public class SporeDoor : Interactable
 {
-    public float doorOpenTime = 2f;
+    public float doorOpenTime = 3f;
+
+    public AudioSource doorAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -23,8 +25,16 @@ public class SporeDoor : Interactable
     {
         base.Interact();
 
-        this.transform.DORotate(new Vector3(0f, 90f, 0f), doorOpenTime);
+        this.transform.DORotate(new Vector3(0f, +90f, 0f), doorOpenTime);
+        doorAudio.Play();
+        Invoke("StopAudio", 2);
+
         hasBeenTriggered = true;
         //this.transform.rotation = 
+    }
+
+    public void StopAudio()
+    {
+        doorAudio.Stop();
     }
 }

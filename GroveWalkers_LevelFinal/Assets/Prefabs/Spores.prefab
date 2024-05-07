@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7997105528138399332}
   - component: {fileID: 4534339809893054248}
   - component: {fileID: 5634107536739990024}
+  - component: {fileID: 2439278285712399212}
   m_Layer: 0
   m_Name: Spores
   m_TagString: Untagged
@@ -77,8 +78,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.81963086
-  m_Center: {x: 0.08191812, y: 1.124797, z: 0}
+  m_Radius: 0.9279685
+  m_Center: {x: 0.019268036, y: 1.1247971, z: 0}
 --- !u!114 &5634107536739990024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,12 +94,108 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   sporeLight: {fileID: 28933590487797299}
-  particleMesh: {fileID: 0}
+  particleMesh: {fileID: 8515641790540823476}
   fleePoints:
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   triggerCollider: {fileID: 4534339809893054248}
+  customImage: {fileID: 0}
+  sporeAudio: {fileID: 2439278285712399212}
+--- !u!82 &2439278285712399212
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3910120483271479501}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 756c82e62bc298d4d980830ac7c22a72, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &8147164014624065477
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,7 +240,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.109803915, g: 1, b: 0.34088197, a: 1}
-  m_Intensity: 0.6
+  m_Intensity: 1.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

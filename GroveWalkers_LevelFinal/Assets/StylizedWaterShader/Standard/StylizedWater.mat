@@ -66,9 +66,9 @@ Material:
     - _RefractionIntensity: 1.71
     - _Roughness: 0.316
     - _SecondaryFoamAlwaysVisible: 0
-    - _SecondaryFoamIntensity: 3.8
+    - _SecondaryFoamIntensity: 4
     - _SecondaryFoamOpacity: 1
-    - _SecondaryFoamScale: 57.01
+    - _SecondaryFoamScale: 35
     - _ShadowIntensity: 1
     - _Shadows: 1
     - _ShadowsIntensity: 1

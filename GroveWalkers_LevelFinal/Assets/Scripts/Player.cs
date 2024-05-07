@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
 
         if (hasSpore == true)
         {
-            //sporeLight.intensity -= .5f * Time.deltaTime;
+            sporeLight.intensity -= .35f * Time.deltaTime;
             if (sporeLight.intensity <= 0)
             {
                 hasSpore = false;
@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
             Debug.Log("Key Hit");
 
             RaycastHit hit;
-            if (Physics.Raycast(this.transform.position, this.transform.forward, out hit, 5f))
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 5f))
             {
                 Debug.Log("Raycast Hit Somethin");
                 Debug.Log(hit.collider.name);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public enum SporeState
 {
@@ -21,6 +22,10 @@ public class SporeCluster : MonoBehaviour
     private NavMeshAgent agent;
     private bool isCollected;
 
+    public Image customImage;
+
+    public AudioSource sporeAudio;
+
     private Vector3 spawnPoint;
 
     // Start is called before the first frame update
@@ -37,7 +42,23 @@ public class SporeCluster : MonoBehaviour
 
     void Start()
     {
-        spawnPoint = this.transform.position;
+        spawnPoint = this.transform.position;   
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            customImage.enabled = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            customImage.enabled = false;
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -84,7 +105,9 @@ public class SporeCluster : MonoBehaviour
         currentState = SporeState.Collected;
         triggerCollider.enabled = false;
         ToggleMeshAndLight(false);
+        sporeAudio.Play();
         Player.instance.OnSporeCollected(this);
+        customImage.enabled = false;
     }
 
     public void StartRespawn()
