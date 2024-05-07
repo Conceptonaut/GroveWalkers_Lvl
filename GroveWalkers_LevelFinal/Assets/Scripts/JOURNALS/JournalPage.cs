@@ -54,6 +54,7 @@ public class JournalPage : Interactable
 
             sequence.Kill();
             sequence = DOTween.Sequence();
+            
 
             if (journalScreen.transform.localScale == Vector3.zero)
             {
