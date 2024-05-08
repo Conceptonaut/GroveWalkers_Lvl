@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,10 @@ public class Player : MonoBehaviour
     public bool isCrouched = false;
     private SporeCollection sporeCollection;
 
+    public GameObject plantLamp;
+    public float lampTime = 1f;
     public Light sporeLight;
+    public GameObject lanternSpores;
     public bool hasSpore = false;
 
     public float lightIntensity = 4;
@@ -116,7 +120,10 @@ public class Player : MonoBehaviour
                         {
                             interactable.Interact();
                             FPScontroller.cameraCanMove = false;
+
+
                         }
+
                     }
                 }
             }
@@ -146,7 +153,11 @@ public class Player : MonoBehaviour
         {
             sporeLight.enabled = hasSpore; // Enable light if the player has a spore, otherwise disable it
         }
+
     }
 
-    
+    public void CollectPlant()
+    {
+        plantLamp.transform.DOMoveY(plantLamp.transform.position.y + 1f, lampTime);
+    }
 }

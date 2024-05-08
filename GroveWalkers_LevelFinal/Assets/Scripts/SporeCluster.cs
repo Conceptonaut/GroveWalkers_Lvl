@@ -61,32 +61,53 @@ public class SporeCluster : MonoBehaviour
         }
     }
 
+    bool isPlayer;
+    public void Update()
+    {
+        if(isPlayer)
+        {
+
+            Debug.LogError("player is CROUCHED ::: " + player.IsCrouched() + " CURRENT STATE :::: " + currentState + " INPUT GETKEY " + Input.GetKeyDown(KeyCode.E));
+            if (player.IsCrouched())
+            {
+                if (Input.GetKeyDown(KeyCode.E) && (currentState == SporeState.Dormant || currentState == SporeState.Collected))
+                {
+                    Debug.LogError("You collected the spores!");
+                    CollectSpore();
+                    isPlayer = false;
+                }
+
+            }
+            else
+            {
+                if (currentState == SporeState.Dormant)
+                {
+                    currentState = SporeState.Fleeing;
+                    triggerCollider.enabled = false;
+                    Debug.Log("You distrubed the spores");
+                    MoveToRandomFleePoint();
+                    isPlayer = false;
+                }
+            }
+
+        }
+    }
+
+    private Player player;
+
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            Player player = other.GetComponent<Player>();
+            player = other.GetComponent<Player>();
+            Debug.LogError("player ::: " + player.name);
             if (player != null)
             {
-                if (player.IsCrouched())
-                {
-                    if (Input.GetKeyDown(KeyCode.E) && (currentState == SporeState.Dormant || currentState ==  SporeState.Collected))
-                    {
-                        CollectSpore();
-                        Debug.Log("You collected the spores!");
-                    }
-                    
-                }
-                else 
-                {
-                    if (currentState == SporeState.Dormant)
-                    {
-                        currentState = SporeState.Fleeing;
-                        triggerCollider.enabled = false;
-                        Debug.Log("You distrubed the spores");
-                        MoveToRandomFleePoint();
-                    }
-                }
+                isPlayer = true;
+            }
+            else
+            {
+                isPlayer= false;
             }
         }
     }
