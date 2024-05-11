@@ -72,7 +72,7 @@ public class Player : MonoBehaviour
 
         if (hasSpore == true)
         {
-            sporeLight.intensity -= .35f * Time.deltaTime;
+            sporeLight.intensity -= .2f * Time.deltaTime;
             if (sporeLight.intensity <= 0)
             {
                 hasSpore = false;
@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
             Debug.Log("Key Hit");
 
             RaycastHit hit;
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 5f))
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 10f))
             {
                 Debug.Log("Raycast Hit Somethin");
                 Debug.Log(hit.collider.name);
@@ -158,6 +158,7 @@ public class Player : MonoBehaviour
 
     public void CollectPlant()
     {
-        plantLamp.transform.DOMoveY(plantLamp.transform.position.y + 1f, lampTime);
+        plantLamp.transform.DOScale(0.612f, lampTime);
+        //plantLamp.transform.DOMoveY(plantLamp.transform.position.y + .5f, lampTime);
     }
 }

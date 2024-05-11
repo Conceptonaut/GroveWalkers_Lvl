@@ -28,7 +28,7 @@ public class SporeStairs : Interactable
 
         Debug.Log("Stairs Triggered");
 
-        pairedStairs.transform.DOMoveZ(pairedStairs.transform.position.z - 4f, stairsTime);
+        pairedStairs.transform.DOMoveZ(pairedStairs.transform.position.z - 5f, stairsTime);
         stairsAudio.Play();
         Invoke("StopAudio", 3);
         hasBeenTriggered = true;

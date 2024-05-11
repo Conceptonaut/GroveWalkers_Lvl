@@ -9,6 +9,8 @@ public class SporePads : Interactable
     public GameObject padTwo;
     public float padTime = 2f;
 
+    public AudioSource lilyAudio;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +28,7 @@ public class SporePads : Interactable
         base.Interact();
 
         padOne.transform.DOMoveY(padOne.transform.position.y + 3f, padTime);
-        FindObjectOfType<AudioManager>().Play("Splash");
+        lilyAudio.Play();
         Invoke("RaisePadTwo", 1);
         hasBeenTriggered = true;
         //this.transform.rotation = 
@@ -35,6 +37,7 @@ public class SporePads : Interactable
     public void RaisePadTwo()
     {
         padTwo.transform.DOMoveY(padTwo.transform.position.y + 3f, padTime);
-        FindObjectOfType<AudioManager>().Play("Splash");
+        lilyAudio.Play();
+
     }
 }

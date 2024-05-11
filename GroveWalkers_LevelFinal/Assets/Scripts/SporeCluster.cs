@@ -87,6 +87,7 @@ public class SporeCluster : MonoBehaviour
                     Debug.Log("You distrubed the spores");
                     MoveToRandomFleePoint();
                     isPlayer = false;
+                    customImage.enabled = false;
                 }
             }
 

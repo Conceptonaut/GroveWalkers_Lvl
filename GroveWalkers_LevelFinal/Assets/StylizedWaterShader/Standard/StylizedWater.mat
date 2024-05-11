@@ -51,7 +51,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Cutoff: 0.5
-    - _FresnelExp: 5
+    - _FresnelExp: 2.5167785
     - _GradientPosition1: 2.3328786
     - _GradientPosition2: 2.5
     - _LightColorIntensity: 0.75

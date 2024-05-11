@@ -71,6 +71,8 @@ public class JournalPage : Interactable
                 journalScreen.transform.DOScale(Vector3.zero, fadeTime);
                 canvasGroup.DOFade(0f, fadeTime);
                 Player.instance.FPScontroller.cameraCanMove = true;
+                LockMouse();
+
             }
             StartCoroutine(WaitForPauseMenu());
         }
@@ -86,5 +88,11 @@ public class JournalPage : Interactable
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+    }
+
+    public void LockMouse()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }
